@@ -1,21 +1,29 @@
 import json
+import os
+
 import mysql.connector
 from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 # database MySQL
-db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '',
-    'database': 'library'
-}
+# Carica configurazione di base
+app.config.from_object('config.DevelopmentConfig')
 
+# Sovrascrivi con configurazione locale, se esiste
+if os.path.exists('config_local.py'):
+    app.config.from_object('config_local.DevelopmentConfig')
+
+# Crea il dizionario db_config basato sulle configurazioni di Flask
+db_config = {
+    'host': app.config['MYSQL_DATABASE_HOST'],
+    'user': app.config['MYSQL_DATABASE_USER'],
+    'password': app.config['MYSQL_DATABASE_PASSWORD'],
+    'database': app.config['MYSQL_DATABASE_DB']
+}
 
 # Funzione per creare una connessione al database
 def create_db_connection():
     return mysql.connector.connect(**db_config)
-
 
 # Funzione per eseguire query SQL
 def execute_query(query, params=None):
@@ -59,8 +67,8 @@ def test():
     print(f"Data: {data}")
     print(f"Status Code: {status_code}")
     print(f"Headers: {headers}")
-    print(f"MIME Type: {mimetype}")
-    print(f"Content Type: {content_type}")
+    print(f"MIME   Type: {mimetype}")
+    print(f"Content  Type: {content_type}")
     print(f"JSON Data: {json_data}")
 
     # Restituisce i dati JSON
