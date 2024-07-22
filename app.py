@@ -67,12 +67,12 @@ def test():
     print(f"Data: {data}")
     print(f"Status Code: {status_code}")
     print(f"Headers: {headers}")
-    print(f"MIME   Type: {mimetype}")
-    print(f"Content  Type: {content_type}")
+    print(f"MIME Type: {mimetype}")
+    print(f"Content Type: {content_type}")
     print(f"JSON Data: {json_data}")
 
     # Restituisce i dati JSON
-    return jsonify(json_data) 
+    return jsonify(json_data)
 
 #fine route di esempio
 
