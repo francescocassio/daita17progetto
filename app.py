@@ -72,7 +72,7 @@ def test():
     print(f"JSON Data: {json_data}")
 
     # Restituisce i dati JSON
-    return jsonify(json_data)
+    return jsonify(json_data) 
 
 #fine route di esempio
 
